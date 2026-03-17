@@ -15,7 +15,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.9'
+          flutter-version: '3.22.0'
       - name: Install dependencies & build Android
         run: |
           cd time_tracker_app
@@ -36,7 +36,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.9'
+          flutter-version: '3.22.0'
       - name: Install dependencies & build Web
         run: |
           cd time_tracker_app
@@ -57,7 +57,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.9'
+          flutter-version: '3.22.0'
       - name: Install dependencies & build Windows
         run: |
           cd time_tracker_app
