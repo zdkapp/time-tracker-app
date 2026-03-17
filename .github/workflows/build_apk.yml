@@ -1,0 +1,71 @@
+name: Build Flutter App (Android + Web + Windows)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # 1. Android 构建
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+      - name: Install dependencies & build Android
+        run: |
+          cd time_tracker_app
+          flutter pub get
+          flutter build apk --release
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: time_tracker_app/build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+  # 2. Web 构建
+  build-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+      - name: Install dependencies & build Web
+        run: |
+          cd time_tracker_app
+          flutter pub get
+          flutter build web --release
+      - name: Upload Web Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: time_tracker_app/build/web/
+          retention-days: 30
+
+  # 3. Windows 构建
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+      - name: Install dependencies & build Windows
+        run: |
+          cd time_tracker_app
+          flutter pub get
+          flutter build windows --release
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: time_tracker_app/build/windows/x64/runner/Release/
+          retention-days: 30
